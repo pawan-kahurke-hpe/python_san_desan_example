@@ -27,13 +27,13 @@ python script_name.py -in logfile.txt -out sanitized_logfile.txt -map mappingfil
 python script_name.py -in sanitized_logfile.txt -out desanitized_logfile.txt -map mappingfile.json -mode desanitize
 ```
 
-Importing Required Modules
-python
-Copy code
+# Importing Required Modules
+```python
 import re
 import argparse
 import json
-re: Provides support for regular expressions to identify and replace patterns in text.
+```
+- `re`: Provides support for regular expressions to identify and replace patterns in text.
 argparse: Facilitates easy parsing of command-line arguments.
 json: Enables reading from and writing to JSON files.
 Defining the sanitize_log Function
