@@ -21,8 +21,8 @@ This script provides functionality to sanitize sensitive data (such as IP addres
 
 ```bash
 python script_name.py -in logfile.txt -out sanitized_logfile.txt -map mappingfile.json -mode sanitize
-
+```
 ### Desantization
 ```bash
 python script_name.py -in sanitized_logfile.txt -out desanitized_logfile.txt -map mappingfile.json -mode desanitize
-
+```
