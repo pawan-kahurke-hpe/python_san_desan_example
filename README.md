@@ -153,4 +153,4 @@ if __name__ == "__main__":
   ```python
   print("hello world")
 ```
-- `project1:` This is project1
+- `project1`: This is project1
