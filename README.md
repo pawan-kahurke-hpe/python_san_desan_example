@@ -34,48 +34,53 @@ import argparse
 import json
 ```
 - `re`: Provides support for regular expressions to identify and replace patterns in text.
-argparse: Facilitates easy parsing of command-line arguments.
-json: Enables reading from and writing to JSON files.
-Defining the sanitize_log Function
-python
-Copy code
+- `argparse`: Facilitates easy parsing of command-line arguments.
+- `json`: Enables reading from and writing to JSON files.
+  
+# Defining the sanitize_log Function
+```python
 def sanitize_log(input_file, output_file, mapping_file, mode):
-sanitize_log: This function handles the sanitization and de-sanitization of log files based on the provided mode.
-Defining Patterns for Sensitive Information
-python
-Copy code
+```
+- `sanitize_log`: This function handles the sanitization and de-sanitization of log files based on the provided mode.
+
+# Defining Patterns for Sensitive Information
+```python
     hostname_pattern = re.compile(r'(hostname\s*=\s*)(\S+)')
     ip_pattern = re.compile(r'(\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b)')
     version_pattern = re.compile(r'(version\s*=\s*)(\S+)')
-hostname_pattern: Matches patterns like hostname = somehost.
-ip_pattern: Matches IP addresses in the form xxx.xxx.xxx.xxx.
-version_pattern: Matches patterns like version = 1.2.3.
-Initializing the Mapping Dictionary
-python
-Copy code
+```
+- `hostname_pattern`: Matches patterns like hostname = somehost.
+- `ip_pattern`: Matches IP addresses in the form xxx.xxx.xxx.xxx.
+- `version_pattern`: Matches patterns like version = 1.2.3.
+# Initializing the Mapping Dictionary
+```python
     mapping = {
         "server.example.com": "#########",
         "192.168.1.10": "*.*.*.*",
         "v5.4.2": "x.y.z"
-    }  # To store the mapping of original to sanitized values
-mapping: A dictionary that maps original sensitive values to their sanitized placeholders.
-Handling the Sanitization Mode
-python
-Copy code
+    }
+```
+ # To store the mapping of original to sanitized values
+- `mapping`: A dictionary that maps original sensitive values to their sanitized placeholders.
+  
+# Handling the Sanitization Mode
+```python
     if mode == 'sanitize':
-mode == 'sanitize': Checks if the mode is 'sanitize'.
-Reading the Input File and Writing the Sanitized Output File
-python
-Copy code
+```
+- `mode == 'sanitize'`: Checks if the mode is 'sanitize'.
+
+# Reading the Input File and Writing the Sanitized Output File
+```python
         with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
             for line in infile:
-with open: Opens the input file for reading and the output file for writing.
-python
-Copy code
+```
+- `with open`: Opens the input file for reading and the output file for writing.
+```python
                 line = hostname_pattern.sub(r'\1#########', line)
                 line = ip_pattern.sub(r'*.*.*.*', line)
                 line = version_pattern.sub(r'\1x.y.z', line)
                 outfile.write(line)
+```
 line = ...sub: Replaces sensitive information in each line with placeholders and writes the sanitized line to the output file.
 Generating the Mapping
 python
