@@ -81,52 +81,57 @@ def sanitize_log(input_file, output_file, mapping_file, mode):
                 line = version_pattern.sub(r'\1x.y.z', line)
                 outfile.write(line)
 ```
-line = ...sub: Replaces sensitive information in each line with placeholders and writes the sanitized line to the output file.
-Generating the Mapping
-python
-Copy code
+- `line = ...sub`: Replaces sensitive information in each line with placeholders and writes the sanitized line to the output file.
+  
+# Generating the Mapping
+```python
                 for match in hostname_pattern.finditer(line):
                     mapping[match.group(2)] = '#########'
                 for match in ip_pattern.finditer(line):
                     mapping[match.group()] = '*.*.*.*'
                 for match in version_pattern.finditer(line):
                     mapping[match.group(2)] = 'x.y.z'
-for match in ...finditer: Finds all matches of the patterns in the line and updates the mapping dictionary.
-Writing the Mapping to a File
-python
-Copy code
+```
+- `for match in ...finditer`: Finds all matches of the patterns in the line and updates the mapping dictionary.
+
+# Writing the Mapping to a File
+```python
         with open(mapping_file, 'w') as mapfile:
             json.dump(mapping, mapfile)
-with open(mapping_file, 'w'): Opens the mapping file for writing.
-json.dump(mapping, mapfile): Writes the mapping dictionary to the mapping file in JSON format.
-Handling the De-sanitization Mode
-python
-Copy code
+```
+- `with open(mapping_file, 'w')`: Opens the mapping file for writing.
+- `json.dump(mapping, mapfile)`: Writes the mapping dictionary to the mapping file in JSON format.
+- 
+# Handling the De-sanitization Mode
+```python
     elif mode == 'desanitize':
         with open(mapping_file, 'r') as mapfile:
             mapping = json.load(mapfile)
-mode == 'desanitize': Checks if the mode is 'desanitize'.
-json.load(mapfile): Loads the mapping dictionary from the mapping file.
+```
+- `mode == 'desanitize'`: Checks if the mode is 'desanitize'.
+- `json.load(mapfile)`: Loads the mapping dictionary from the mapping file.
 Reading the Input File and Writing the De-sanitized Output File
-python
-Copy code
+```python
         with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
             for line in infile:
-with open: Opens the input file for reading and the output file for writing.
-python
-Copy code
+```
+- `with open`: Opens the input file for reading and the output file for writing.
+
+```python
                 for original, sanitized in mapping.items():
                     line = line.replace(sanitized, original)
                 outfile.write(line)
-for original, sanitized in mapping.items(): Iterates over the mapping dictionary and replaces placeholders with the original sensitive information.
-Main Script Execution
-python
-Copy code
+```
+- `for original, sanitized in mapping.items()`: Iterates over the mapping dictionary and replaces placeholders with the original sensitive information.
+
+# Main Script Execution
+```python
 if __name__ == "__main__":
-if name == "main": Ensures the following code block runs only when the script is executed directly, not when imported as a module.
-Setting Up Argument Parsing
-python
-Copy code
+```
+- `if name == "main"`: Ensures the following code block runs only when the script is executed directly, not when imported as a module.
+
+# Setting Up Argument Parsing
+```python
     parser = argparse.ArgumentParser(description='Sanitize or desanitize log files')
     parser.add_argument('-in', dest='input_file', required=True, help='Input log file')
     parser.add_argument('-out', dest='output_file', required=True, help='Output file')
@@ -134,10 +139,12 @@ Copy code
     parser.add_argument('-mode', dest='mode', choices=['sanitize', 'desanitize'], required=True,
                         help='Mode: "sanitize" to replace sensitive information, "desanitize" to restore original')
     args = parser.parse_args()
-argparse.ArgumentParser: Creates a parser object for handling command-line arguments.
-add_argument: Defines the command-line arguments and their properties.
-Calling the sanitize_log Function
-python
-Copy code
+```
+- `argparse.ArgumentParser`: Creates a parser object for handling command-line arguments.
+- `add_argument`: Defines the command-line arguments and their properties.
+  
+# Calling the sanitize_log Function
+```python
     sanitize_log(args.input_file, args.output_file, args.mapping_file, args.mode)
-sanitize_log(args.input_file, args.output_file, args.mapping_file, args.mode): Calls the sanitize_log function with the parsed command-line arguments.
+```
+- `sanitize_log(args.input_file, args.output_file, args.mapping_file, args.mode)`: Calls the sanitize_log function with the parsed command-line arguments.
