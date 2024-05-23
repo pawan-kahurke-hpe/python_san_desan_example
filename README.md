@@ -148,3 +148,9 @@ if __name__ == "__main__":
     sanitize_log(args.input_file, args.output_file, args.mapping_file, args.mode)
 ```
 - `sanitize_log(args.input_file, args.output_file, args.mapping_file, args.mode)`: Calls the sanitize_log function with the parsed command-line arguments.
+
+  # vaibhav
+  ```python
+  print("hello world")
+```
+- `project1:` This is project1
